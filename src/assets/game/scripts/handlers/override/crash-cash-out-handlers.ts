@@ -18,8 +18,8 @@ export class CrashCashOutHandlers extends gc.GameCrash.CrashCashOut.CrashCashOut
         },
     ];
 
-    @inject(BetControlStore) private betControlStore: BetControlStore;
-    @inject(CrashBetListHandlers) private crashBetListHandlers: CrashBetListHandlers;
+    @inject(BetControlStore) private readonly betControlStore: BetControlStore;
+    @inject(CrashBetListHandlers) private readonly crashBetListHandlers: CrashBetListHandlers;
 
     protected handleMultiplier() {
         //dont need, compute by betControlStore.getCashedOutValue(betKey)

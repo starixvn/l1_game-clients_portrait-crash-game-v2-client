@@ -4,7 +4,7 @@ import { BetControlStore } from "../crash-v2/bet/bet-control-store";
 const { injectable, inject } = inversify;
 @injectable()
 export class GameCrashUserSettingHandlerV2 extends gc.GameCrash.CrashGameUserSetting.GameCrashUserSettingHandler {
-    @inject(BetControlStore) private betControlStore: BetControlStore;
+    @inject(BetControlStore) private readonly betControlStore: BetControlStore;
 
     saveTempStorage() {
         const settings = Object.keys(this.betControlStore.controls).reduce((acc, betKey) => {

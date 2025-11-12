@@ -41,7 +41,7 @@ export class BetHistoryRocketXTableBody extends ObserverComponent {
         betHistoryLog: gc.BetHistory.BetHistoryLog,
         index: number,
         betKey: number,
-        fractionalOddsFormat?: boolean
+        fractionalOddsFormat = false
     ): Node {
         const component = this.getHistoryItemComponent(bodyItem);
         component?.setData({
