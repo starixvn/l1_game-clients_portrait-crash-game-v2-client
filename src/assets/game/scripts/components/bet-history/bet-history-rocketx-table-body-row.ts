@@ -4,10 +4,10 @@ import Observer from "observer";
 
 import { DynamicObject } from "@sg/game-client-base/dist/game/bet-history";
 import { ObserverComponent } from "db://shared-components/shared/common-components/observer-component/scripts/observer-component";
+import { formatCurrencyWithConfig } from "db://shared-components/shared/utils";
 import { CrashUtils } from "../../crash-utils";
 import { HistoryConstants } from "../../handlers/crash-v2";
 import { BetWinCell } from "./bet-win-cell";
-
 const { property, ccclass } = _decorator;
 const { DateTimeUtils, FormatUtils } = gc;
 const { handle } = Observer;
@@ -74,7 +74,7 @@ export default class BetHistoryRocketXTableBodyRow extends ObserverComponent {
 
         const betAmount = this.getBetAmount(betHistoryLog, betKey);
         if (this.lblTotalStake) {
-            this.lblTotalStake.string = FormatUtils.numberWithCommas(betAmount, 2);
+            this.lblTotalStake.string = formatCurrencyWithConfig(betAmount);
         }
 
         this.bindMultiplier(betHistoryLog, betKey);
@@ -115,7 +115,7 @@ export default class BetHistoryRocketXTableBodyRow extends ObserverComponent {
 
         const isReachMaxWin = Boolean(betCashOut?.reachMaxWin);
         const betwin = betCashOut === undefined ? 0 : Number(betCashOut.winAmount);
-        const win = FormatUtils.numberWithCommas(betwin, 2);
+        const win = formatCurrencyWithConfig(betwin);
 
         this.betWinCell.getComponent(BetWinCell)?.setData(win, isReachMaxWin);
         if (isReachMaxWin) {

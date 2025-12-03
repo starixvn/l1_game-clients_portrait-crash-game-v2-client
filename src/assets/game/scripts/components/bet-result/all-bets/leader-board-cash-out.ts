@@ -1,5 +1,6 @@
 import gc from "@sg/game-client-base";
 import { _decorator, Component, Label, Node } from "cc";
+import { formatCurrencyWithConfig } from "db://shared-components/shared/utils";
 import { CrashUtils } from "../../../crash-utils";
 
 const { ccclass, property } = _decorator;
@@ -33,9 +34,9 @@ export class LeaderBoardCashOut extends Component {
         this.nodeBackground.active = index % 2 > 0;
         const { name, multiplier, win, amount } = data;
         this.lblName.string = CrashUtils.encryptedName(name);
-        this.lblBetAmount.string = FormatUtils.numberWithCommas(amount, 2);
+        this.lblBetAmount.string = formatCurrencyWithConfig(amount);
         const hasCashedOut = multiplier > 0;
         this.lblMultiplier.string = hasCashedOut ? `${FormatUtils.numberWithCommas(multiplier, 2, false)}x` : "-";
-        this.lblWin.string = hasCashedOut ? FormatUtils.numberWithCommas(win, 2) : "-";
+        this.lblWin.string = hasCashedOut ? formatCurrencyWithConfig(win) : "-";
     }
 }

@@ -1,6 +1,6 @@
-import gc from "@sg/game-client-base";
 import { _decorator, Component, Label } from "cc";
-const { ccclass, property } = _decorator;
+import { formatCurrencyWithConfig } from "db://shared-components/shared/utils";
+const { ccclass } = _decorator;
 
 @ccclass("InputValueItem")
 export class InputValueItem extends Component {
@@ -14,6 +14,6 @@ export class InputValueItem extends Component {
         if (!this.label) {
             this.fetchLabel();
         }
-        this.label.string = gc.FormatUtils.numberWithCommas(value);
+        this.label.string = formatCurrencyWithConfig(value);
     }
 }

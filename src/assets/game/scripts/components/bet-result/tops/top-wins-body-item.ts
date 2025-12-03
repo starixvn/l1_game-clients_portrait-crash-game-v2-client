@@ -3,6 +3,7 @@ import { _decorator, Label, Node } from "cc";
 import Observer from "observer";
 
 import { ObserverComponent } from "db://shared-components/shared/common-components/observer-component/scripts/observer-component";
+import { formatCurrencyWithConfig } from "db://shared-components/shared/utils";
 import { CrashUtils } from "../../../crash-utils";
 import { TopWinItem } from "../../../handlers/api-client/top-result-client";
 import { TopWinHandlers } from "../../../handlers/crash-v2";
@@ -41,8 +42,8 @@ export default class TopWinsBodyItem extends ObserverComponent {
         this.nodeBackground.active = index % 2 > 0;
 
         this.lblPlayer && (this.lblPlayer.string = CrashUtils.encryptedName(item.name));
-        this.lblWin && (this.lblWin.string = FormatUtils.numberWithCommas(item.winAmount, 2));
-        this.lblTotalStake && (this.lblTotalStake.string = FormatUtils.numberWithCommas(item.betAmount, 2));
+        this.lblWin && (this.lblWin.string = formatCurrencyWithConfig(item.winAmount));
+        this.lblTotalStake && (this.lblTotalStake.string = formatCurrencyWithConfig(item.betAmount));
 
         this.lblMultiplier.string = `${FormatUtils.numberWithCommas(+item.cashoutPoint, 2, false)}x`;
         this.lblMultiplier.color = CrashUtils.getMultiplierColor(item.cashoutPoint);

@@ -2,6 +2,7 @@ import gc from "@sg/game-client-base";
 import { _decorator, Button, EditBox, Label, Node, Toggle, warn } from "cc";
 import { ObserverComponent } from "db://shared-components/shared/common-components/observer-component/scripts/observer-component";
 import { ToggleNode } from "db://shared-components/shared/common-components/toggle-node";
+import { formatCurrencyWithConfig } from "db://shared-components/shared/utils";
 import Observer from "observer";
 import { AudioIds } from "../../../audios/AudioIds";
 import { BetControlStore } from "../../handlers/crash-v2/bet/bet-control-store";
@@ -9,9 +10,8 @@ import { ButtonState, IBetControlSettings } from "../../handlers/crash-v2/interf
 import { CrashBetHandler } from "../../handlers/override/crash-bet-handler";
 import { InputValueItem } from "./input-value-item";
 
-const { Connection } = gc;
 const { ccclass, property } = _decorator;
-const { observer, render, handle } = Observer;
+const { render, handle } = Observer;
 
 @ccclass("CrashBetControl")
 export default class CrashBetControl extends ObserverComponent {
@@ -152,7 +152,7 @@ export default class CrashBetControl extends ObserverComponent {
         this.updateToggleNodes();
         this.updatePreventInput();
 
-        const betValue = gc.FormatUtils.numberWithCommas(setting.amount, 2);
+        const betValue = formatCurrencyWithConfig(setting.amount);
         this.inputBetAmount.string = betValue;
         this.labelBetValue.string = betValue;
         this.inputBetAmount.placeholder = betValue;
@@ -242,7 +242,7 @@ export default class CrashBetControl extends ObserverComponent {
     }
 
     renderCashOutValue(value: number) {
-        this.labelCashOutValue.string = gc.FormatUtils.numberWithCommas(value, 2);
+        this.labelCashOutValue.string = formatCurrencyWithConfig(value);
     }
 
     renderInputValues(values: number[]) {

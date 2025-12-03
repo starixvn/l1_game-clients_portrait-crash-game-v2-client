@@ -1,16 +1,12 @@
-import { InputValueItem } from '../../../../../assets/game/scripts/components/new/input-value-item';
-import { Label, Node } from 'cc';
-import gc from '@sg/game-client-base';
+import { Label, Node } from "cc";
+import { formatCurrencyWithConfig } from "db://shared-components/shared/utils";
+import { InputValueItem } from "../../../../../assets/game/scripts/components/new/input-value-item";
 
-const { FormatUtils } = gc;
-
-jest.mock('@sg/game-client-base', () => ({
-    FormatUtils: {
-        numberWithCommas: jest.fn((value) => value.toString())
-    }
+jest.mock("db://shared-components/shared/utils", () => ({
+    formatCurrencyWithConfig: jest.fn((value) => value.toString()),
 }));
 
-describe('InputValueItem', () => {
+describe("InputValueItem", () => {
     let component: InputValueItem;
     let mockLabel: Label;
 
@@ -22,23 +18,22 @@ describe('InputValueItem', () => {
         component.getComponentInChildren = jest.fn().mockReturnValue(mockLabel);
     });
 
-    describe('fetchLabel', () => {
-        it('should fetch label from children', () => {
+    describe("fetchLabel", () => {
+        it("should fetch label from children", () => {
             component.fetchLabel();
             expect(component.getComponentInChildren).toHaveBeenCalledWith(Label);
             expect(component.label).toBe(mockLabel);
         });
     });
 
-    describe('setValue', () => {
-        it('should set formatted value to label', () => {
+    describe("setValue", () => {
+        it("should set formatted value to label", () => {
             const mockValue = 1000;
             component.setValue(mockValue);
-
-            expect(FormatUtils.numberWithCommas).toHaveBeenCalledWith(mockValue);
+            expect(formatCurrencyWithConfig).toHaveBeenCalledWith(mockValue);
         });
 
-        it('should set value to label', () => {
+        it("should set value to label", () => {
             const mockValue = 1000;
             component.setValue(mockValue);
             expect(component.label.string).toBe(mockValue.toString());

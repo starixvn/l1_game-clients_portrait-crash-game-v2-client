@@ -31,7 +31,8 @@ const defaultConfig: gc.Configs.SiteConfigs = {
         browserUrl: "",
         urlHash: "",
         ignoreErrors: [],
-    },    
+    },
+    decimalPlaces: 4,
 };
 
 let configDev = {
